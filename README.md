@@ -11,4 +11,4 @@ This is a template for creating a new Symfony project. It includes
 	<li>Contact form</li>
 </ul>
 
-se it as a starting point to create something more unique.
+Use it as a starting point to create something more unique.
