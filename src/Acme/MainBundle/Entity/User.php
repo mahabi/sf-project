@@ -1,0 +1,327 @@
+<?php
+ 
+namespace Acme\MainBundle\Entity;
+ 
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+ 
+/**
+ * Acme\MainBundle\Entity\User
+ * 
+ * @ORM\Entity
+ * @ORM\Table(name="sf_user")
+ */
+class User implements AdvancedUserInterface, \Serializable
+{
+    /**
+     * @var integer $id
+     * 
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+ 
+    /**
+     * @var string $username
+     * 
+     * @ORM\Column(type="string", length=30, unique=true)
+     */
+    private $username;
+
+    /**
+     * @var string $email
+     * 
+     * @ORM\Column(type="string", length=100, unique=true)
+     */
+    private $email;
+
+    /**
+     * @var string $salt
+     *
+     * @ORM\Column(type="string", length=40)
+     */
+    private $salt;
+
+    /**
+     * @var string $password
+     *
+     * @ORM\Column(type="string", length=128)
+     */
+    private $password;
+
+    /**
+     * @var boolean $isActive
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+    
+    /**
+     * User's roles. (Owning Side)
+     *
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
+     * @ORM\JoinTable(name="sf_user_role",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     * )
+     */
+    private $roles;
+    
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+    
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->isActive = true;
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+    	$this->email = $email;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+    	return $this->email;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+    
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+    	$this->password = $password;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+    	return $this->password;
+    }
+    
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+    	$this->isActive = $isActive;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+    	return $this->isActive;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param \Acme\MainBundle\Entity\Role $roles
+     * @return User
+     */
+    public function addRole(\Acme\MainBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Acme\MainBundle\Entity\Role $roles
+     */
+    public function removeRole(\Acme\MainBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRoles()
+    {
+        return $this->roles->toArray();
+    }
+    
+    /**
+     * Checks whether the user's account has expired.
+     *
+     * @return Boolean true if the user's account is non expired, false otherwise
+     */
+    public function isAccountNonExpired()
+    {
+    	return true;
+    }
+    
+    /**
+     * Checks whether the user is locked.
+     *
+     * @return Boolean true if the user is not locked, false otherwise
+    */
+    public function isAccountNonLocked()
+    {
+    	return true;
+    }
+    
+    /**
+     * Checks whether the user's credentials (password) has expired.
+     *
+     * @return Boolean true if the user's credentials are non expired, false otherwise
+    */
+    public function isCredentialsNonExpired()
+    {
+    	return true;
+    }
+    
+    /**
+     * Checks whether the user is enabled.
+     *
+     * @return Boolean true if the user is enabled, false otherwise
+    */
+    public function isEnabled()
+    {
+    	return $this->getIsActive();
+    }
+    
+    /**
+     * Serializes the content of the current User object
+     * @return string
+     */
+    public function serialize()
+    {
+    	/*
+         * ! Don't serialize $roles field !
+         */
+        return \serialize(array(
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->salt,
+            $this->password,
+            $this->isActive
+        ));
+    }
+    
+    /**
+     * Unserializes the given string in the current User object
+     * @param serialized
+     */
+    public function unserialize($serialized)
+    {
+    	list (
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->salt,
+            $this->password,
+            $this->isActive
+        ) = \unserialize($serialized);
+    }
+}

@@ -1,0 +1,18 @@
+acme_main:
+    resource: "@AcmeMainBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+login:
+    pattern: /login
+    defaults: { _controller: AcmeMainBundle:Security:login }
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout
+
+_welcome:
+    pattern:  /
+    defaults: { _controller: AcmeMainBundle:Default:index }

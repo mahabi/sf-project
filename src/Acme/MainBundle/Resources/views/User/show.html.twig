@@ -1,0 +1,60 @@
+{% extends "AcmeMainBundle::layout.html.twig" %}
+
+{% block body -%}
+	<div class="container">
+
+		<div class="page-header">
+			<h1>User</h1>
+		</div>
+	
+	    <table class="record_properties table table-condensed">
+	        <tbody>
+	            <tr>
+	                <th class="col-lg-2">Id</th>
+	                <td class="col-lg-10">{{ entity.id }}</td>
+	            </tr>
+	            <tr>
+	                <th>Username</th>
+	                <td>{{ entity.username }}</td>
+	            </tr>
+	            <tr>
+	                <th>Email</th>
+	                <td>{{ entity.email }}</td>
+	            </tr>
+	            <tr>
+	                <th>Is active</th>
+	                <td>
+	                {% if entity.isActive %}
+	                	<span class="label label-success">true</span>
+	                {% else %}
+	                	<span class="label label-danger">false</span>
+	                {% endif %}
+	                </td>
+	            </tr>
+	        </tbody>
+	    </table>
+	
+	    <ul class="record_actions">
+		    <li>
+		        <a href="{{ path('user') }}" class="btn btn-default">
+		        	<i class="glyphicon glyphicon-list"></i>
+		            Back to the list
+		        </a>
+		    </li>
+		    <li>
+		        <a href="{{ path('user_edit', { 'id': entity.id }) }}" class="btn btn-primary">
+		            <i class="glyphicon glyphicon-plus"></i>
+		            Edit
+		        </a>
+		    </li>
+		    <li>{{ form_start(delete_form) }}
+	        <button type="submit" class="btn btn-danger"
+	        	onclick="return confirm('Do you really want to delete this entry?')">
+	            <i class="glyphicon glyphicon-remove"></i>
+	            Delete
+	        </button>
+	    	{{ form_end(delete_form) }}</li>
+		</ul>
+		
+	</div>
+{% endblock %}

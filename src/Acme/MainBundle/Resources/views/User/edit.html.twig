@@ -1,0 +1,29 @@
+{% extends "AcmeMainBundle::layout.html.twig" %}
+
+{% block body -%}
+	<div class="container">
+
+		<div class="page-header">
+			<h1>User edit</h1>
+		</div>
+	    
+	    {{ form(edit_form, { style: 'horizontal' }) }}
+	
+	    <ul class="record_actions">
+		    <li>
+		        <a href="{{ path('user') }}" class="btn btn-default">
+		            <i class="glyphicon glyphicon-list"></i>
+		            Back to the list
+		        </a>
+		    </li>
+		    <li>{{ form_start(delete_form) }}
+	        <button type="submit" class="btn btn-danger"
+	        	onclick="return confirm('Do you really want to delete this entry?')">
+	            <i class="glyphicon glyphicon-remove"></i>
+	            Delete
+	        </button>
+	    	{{ form_end(delete_form) }}</li>
+		</ul>
+		
+	</div>
+{% endblock %}

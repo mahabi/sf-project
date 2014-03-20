@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+{% block title %}Sf-Project{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block nav %}
+ 	<ul class="nav navbar-nav">
+	{% if is_granted('ROLE_USER') %}
+    	<li><a href="{{ path('contact') }}">Contact</a></li>
+  	{% endif %}
+  	{% if is_granted('ROLE_ADMIN') %}
+    	<li><a href="{{ path('user') }}">User management</a></li>
+  	{% endif %}
+  	</ul>
+  	
+	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	<p class="navbar-text navbar-right">{{ app.user.username }} | <a href="{{ path('logout') }}">Logout</a></p>
+	{% else %}
+  	<form action="{{ path('login_check') }}" method="post" id="login" class="navbar-form navbar-right" role="form">
+    	<div class="form-group">
+      		<input type="text" id="username" name="_username" placeholder="Username" class="form-control" autofocus="true" />
+    	</div>
+    	<div class="form-group">
+      		<input type="password" id="password" name="_password" placeholder="Password" class="form-control">
+    	</div>
+    	<button type="submit" class="btn btn-success">Login</button>
+  	</form>
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-message">
+            <em>Notice</em>: {{ flashMessage }}
+        </div>
+    {% endfor %}
+    </div>
+
+    <div class="block">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

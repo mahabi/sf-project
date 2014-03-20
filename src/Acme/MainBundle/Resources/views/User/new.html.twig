@@ -1,0 +1,22 @@
+{% extends "AcmeMainBundle::layout.html.twig" %}
+
+{% block body -%}
+	<div class="container">
+
+		<div class="page-header">
+			<h1>User creation</h1>
+		</div>
+	
+	    {{ form(form, { 'style': 'horizontal' }) }}
+	
+	    <ul class="record_actions">
+		    <li>
+		        <a href="{{ path('user') }}" class="btn btn-default">
+		        	<i class="glyphicon glyphicon-list"></i>
+		            Back to the list
+		        </a>
+		    </li>
+		</ul>
+		
+	</div>
+{% endblock %}

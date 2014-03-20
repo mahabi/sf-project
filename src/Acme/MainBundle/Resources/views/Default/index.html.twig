@@ -1,0 +1,38 @@
+{% extends "AcmeMainBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="jumbotron">
+      <div class="container">
+        <h1><img src="{{ asset('images/logo_symfony.png') }}" width="62" height="62" alt="Symfony"> Project</h1>
+        <p><small>This is a template for creating a new Symfony project. It includes</small></p>
+        <ul>
+        	<li>Bootstrap integration with <a href="http://bootstrap.braincrafted.com">BraincraftedBootstrapBundle</a></li>
+        	<li>Authentication and authorization</li>
+        	<li>User are stored via Doctrine ORM</li>
+        	<li>User management</li>
+        	<li>Contact form</li>
+        </ul>
+        <p><small>Use it as a starting point to create something more unique.</small></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h2><img src="{{ asset('images/logo_symfony.png') }}" width="62" height="62" alt="Symfony"> Symfony</h2>
+          <p>Symfony is an Open Source PHP Web applications development framework. It was originally conceived by the interactive agency <a href="http://sensiolabs.com/en">SensioLabs</a> for the development of web sites for its own customers. Symfony was published by the agency in 2005 under MIT Open Source license and today it is among the leading frameworks available for PHP development. </p>
+          <p><a class="btn btn-default" href="http://symfony.com" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2><img src="{{ asset('images/logo_twig.jpg') }}" width="62" height="62" alt="Twig"> Twig</h2>
+          <p>Twig is a modern template engine for PHP. Twig compiles templates down to plain optimized PHP code. The overhead compared to regular PHP code was reduced to the very minimum. Twig is powered by a flexible lexer and parser. This allows the developer to define its own custom tags and filters, and create its own DSL.</p>
+          <p><a class="btn btn-default" href="http://twig.sensiolabs.org" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2><img src="{{ asset('images/logo_doctrine.png') }}" width="62" height="62" alt="Doctrine">Doctrine</h2>
+          <p>Object relational mapper (ORM) for PHP that sits on top of a powerful database abstraction layer (DBAL). One of its key features is the option to write database queries in a proprietary object oriented SQL dialect called Doctrine Query Language (DQL), inspired by Hibernates HQL. This provides developers with a powerful alternative to SQL that maintains flexibility without requiring unnecessary code duplication.</p>
+          <p><a class="btn btn-default" href="http://www.doctrine-project.org" role="button">View details &raquo;</a></p>
+       </div>
+      </div>
+	</div>
+{% endblock %}

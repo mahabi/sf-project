@@ -1,0 +1,23 @@
+body {
+    padding-top: 50px;
+}
+ul.record_actions {
+    list-style: none;
+    margin: 0;
+}
+ul.record_actions li {
+    float: left;
+    margin-right: 10px;
+}
+.jumbotron {
+    padding: 0.5em 0.6em;
+}
+.jumbotron h1 {
+    font-size: 2em;
+}
+.jumbotron p {
+    font-size: 1.2em;
+}
+.table, .form-horizontal {
+    margin-bottom: 40px;
+}

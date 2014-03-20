@@ -1,0 +1,66 @@
+{% extends "AcmeMainBundle::layout.html.twig" %}
+
+{% block body -%}
+	<div class="container">
+
+		<div class="page-header">
+			<h1>User list</h1>
+		</div>
+	
+	    <table class="records_list table table-condensed table-hover">
+	        <thead>
+	            <tr>
+	                <th>Id</th>
+	                <th>Username</th>
+	                <th>Email</th>
+	                <th>Is active</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        {% for entity in entities %}
+	            <tr data-row-key="{{ entity.id }}">
+	                <td>{{ entity.id }}</td>
+	                <td>{{ entity.username }}</td>
+	                <td>{{ entity.email }}</td>
+	                <td>
+	                {% if entity.isActive %}
+	                	<span class="label label-success">true</span>
+	                {% else %}
+	                	<span class="label label-danger">false</span>
+	                {% endif %}
+	                </td>
+	                <td>
+	                	<a href="{{ path('user_edit', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">
+	                        <i class="glyphicon glyphicon-pencil"></i>
+	                        edit
+	                    </a>
+	                </td>
+	            </tr>
+	        {% endfor %}
+	        </tbody>
+	    </table>
+	
+	    <ul class="record_actions">
+	        <li>
+	            <a href="{{ path('user_new') }}" class="btn btn-primary">
+	            	<i class="glyphicon glyphicon-plus"></i>
+	                Create a new entry
+	            </a>
+	        </li>
+	    </ul>
+
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+    <script>
+    	$(function() {
+    		$('.table-hover tr').click(function() {
+    			var rowId = $(this).data("row-key");
+    			window.location.href = "{{ path('user') }}" + rowId;
+    		});
+    	});
+    </script>
+{% endblock %}

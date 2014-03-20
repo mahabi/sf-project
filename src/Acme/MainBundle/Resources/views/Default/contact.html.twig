@@ -1,0 +1,21 @@
+{% extends "AcmeMainBundle::layout.html.twig" %}
+
+{% block content %}
+	<div class="container">
+
+		<div class="page-header">
+			<h1>Contact</h1>
+		</div>
+	    
+	    {{ form(form, { style: 'horizontal' }) }}
+	    
+	    {% for label, flashes in app.session.flashbag.all %}
+		    {% for flash in flashes %}
+	    	    <div class="alert alert-{{ label }}">
+	        	    {{ flash }}
+	    		</div>
+	    	{% endfor %}
+		{% endfor %}
+		
+	</div>
+{% endblock %}
