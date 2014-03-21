@@ -3,6 +3,14 @@ acme_main:
     type:     annotation
     prefix:   /
 
+_welcome:
+    pattern:  /
+    defaults: { _controller: AcmeMainBundle:Default:index }
+
+register:
+    pattern:  /register
+    defaults: { _controller: AcmeMainBundle:Security:register }
+
 login:
     pattern: /login
     defaults: { _controller: AcmeMainBundle:Security:login }
@@ -12,7 +20,3 @@ login_check:
 
 logout:
     pattern: /logout
-
-_welcome:
-    pattern:  /
-    defaults: { _controller: AcmeMainBundle:Default:index }

@@ -239,6 +239,19 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->roles->removeElement($roles);
     }
+    
+    /**
+     * Set roles
+     *
+     * @param string $role
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    
+        return $this;
+    }
 
     /**
      * Get roles

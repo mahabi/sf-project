@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Acme\MainBundle\Entity\Role;
 use Acme\MainBundle\Entity\User;
 use Acme\MainBundle\Form\UserType;
 
@@ -74,6 +75,12 @@ class UserController extends Controller
     */
     private function createCreateForm(User $entity)
     {
+        $em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository('AcmeMainBundle:Role')->findOneBy(array('name' => 'ROLE_USER'));
+        if ($role) {
+            $entity->addRole($role);
+        }
+
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
@@ -233,7 +240,21 @@ class UserController extends Controller
 
         return $this->redirect($this->generateUrl('user'));
     }
-    
+
+    /**
+     * Encodes the password
+     *
+     * @param User $user
+     *
+     * @return The encoded password
+     */
+    private function encodePassword(User $user)
+    {
+    	$factory = $this->get('security.encoder_factory');
+    	$encoder = $factory->getEncoder($user);
+    	return $encoder->encodePassword($user->getPassword(), $user->getSalt());
+    }
+
     /**
      * Creates a form to delete a User entity by id.
      *
@@ -249,19 +270,5 @@ class UserController extends Controller
             //////->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
-    }
-    
-    /**
-     * Encodes the password
-     *
-     * @param User $user
-     *
-     * @return The encoded password
-     */
-    private function encodePassword(User $user)
-    {
-    	$factory = $this->get('security.encoder_factory');
-    	$encoder = $factory->getEncoder($user);
-    	return $encoder->encodePassword($user->getPassword(), $user->getSalt());
-    }    
+    }   
 }

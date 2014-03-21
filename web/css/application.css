@@ -10,6 +10,7 @@ ul.record_actions li {
     margin-right: 10px;
 }
 .jumbotron {
+    line-height: 25px;
     padding: 0.5em 0.6em;
 }
 .jumbotron h1 {

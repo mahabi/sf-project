@@ -25,12 +25,16 @@ class UserType extends AbstractType
             	'required' => true,
             	'attr' => array(
             		'autocomplete' => 'off',
+					'placeholder' => 'Unique username',
             		'pattern' => '.{2,}'	//minlength
             	)
             ))
             ->add('email', 'email', array(
             	'max_length' => 100,
-            	'required' => true
+            	'required' => true,
+                'attr' => array(
+					'placeholder' => 'Unique email'
+                )
             ))
             ->add('salt', 'hidden')
             ->add('password', 'password', array(
@@ -39,6 +43,7 @@ class UserType extends AbstractType
             	'always_empty' => true,
             	'attr' => array(
             		'autocomplete' => 'off',
+                    'placeholder' => 'min. 6 characters',
             		'pattern' => '.{6,}'	//minlength
             	)
             ))
