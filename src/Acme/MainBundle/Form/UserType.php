@@ -22,7 +22,7 @@ class UserType extends AbstractType
         $builder
             ->add('username', 'text', array(
             	'max_length' => 40,
-            	'required' => true,
+            	'required' => false,
             	'attr' => array(
             		'autocomplete' => 'off',
 					'placeholder' => 'Unique username',
@@ -31,7 +31,7 @@ class UserType extends AbstractType
             ))
             ->add('email', 'email', array(
             	'max_length' => 100,
-            	'required' => true,
+            	'required' => false,
                 'attr' => array(
 					'placeholder' => 'Unique email'
                 )
@@ -39,12 +39,12 @@ class UserType extends AbstractType
             ->add('salt', 'hidden')
             ->add('password', 'password', array(
             	'max_length' => 40,
-            	'required' => true,
+            	'required' => false,
             	'always_empty' => true,
             	'attr' => array(
             		'autocomplete' => 'off',
                     'placeholder' => 'min. 6 characters',
-            		'pattern' => '.{6,}'	//minlength
+                    'pattern' => '.{6,}'	//minlength
             	)
             ))
             ->add('isActive', 'checkbox', array(

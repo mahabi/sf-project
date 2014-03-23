@@ -196,13 +196,18 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
+        $oldPassword = $entity->getPassword();
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-        	// Set encrypted password
-        	$entity->setPassword($this->encodePassword($entity));
+            if ($entity->getPassword() == '......') {
+                $entity->setPassword($oldPassword);
+            } else {
+        	    // Set encrypted password
+        	    $entity->setPassword($this->encodePassword($entity));
+            }
 
         	$em->flush();
 

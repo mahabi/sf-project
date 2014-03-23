@@ -27,3 +27,12 @@
 		
 	</div>
 {% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+    <script>
+    	$(function() {
+    		$('#user_password').val('......');
+    	});
+    </script>
+{% endblock %}

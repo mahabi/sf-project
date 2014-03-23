@@ -53,6 +53,32 @@ class SecurityController extends Controller
         }
 
         $form = $this->createForm(new UserType(), $user);
+
+        $form->add('password', 'repeated', array(
+            'type' => 'password',
+            'invalid_message' => 'Passwords do not match',
+            'options' => array(
+                'max_length' => 40,
+            ),
+            'max_length' => 40,
+            'required' => false,
+            'first_options'  => array(
+                'label' => 'Password',
+            	'attr' => array(
+            		'autocomplete' => 'off',
+                    'placeholder' => 'min. 6 characters',
+                    'pattern' => '.{6,}'	//minlength
+            	)
+            ),
+            'second_options' => array(
+                'label' => 'Repeat Password',
+            	'attr' => array(
+            		'autocomplete' => 'off',
+                    'placeholder' => 'Password confirmation',
+                    'pattern' => '.{6,}'	//minlength
+            	)
+            )
+        ));
         $form->add('isActive', 'hidden');
         $form->add('roles', 'entity', array(
             'class' => 'AcmeMainBundle:Role',

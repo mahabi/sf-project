@@ -17,7 +17,7 @@ class ContactType extends AbstractType
 		$builder
 			->add('name', 'text', array(
 				'max_length' => 100,
-				'required' => true,
+				'required' => false,
 				'attr' => array(
 					'placeholder' => 'What\'s your name?',
 					'pattern' => '.{2,}'	//minlenght
@@ -25,13 +25,14 @@ class ContactType extends AbstractType
 			))
 			->add('email', 'email', array(
 				'max_length' => 100,
+                'required' => false,
 				'attr' => array(
 					'placeholder' => 'So I can get back to you.'
 				)
 			))
 			->add('subject', 'text', array(
             	'max_length' => 78,
-            	'required' => true,
+            	'required' => false,
 				'attr' => array(
 					'placeholder' => 'The subject of your message.',
 					'pattern' => '.{3,}'	//minlength
@@ -39,7 +40,7 @@ class ContactType extends AbstractType
         	))
 			->add('message', 'textarea', array(
             	'max_length' => 900,
-            	'required' => true,
+            	'required' => false,
 				'attr' => array(
 					'cols' => 90,
 					'rows' => 10,
